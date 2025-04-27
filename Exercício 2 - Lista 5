@@ -1,0 +1,19 @@
+//Crie uma função quadrática com variáveis a, b e c declaradas globalmente.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+float a = 1, b = 2, c = 3;
+
+float y(float x){
+    return a * x * x + b * x + c;
+}
+
+int main(){
+    float x;
+    printf("Na função y = x'2 + 2x + 3, insira x para obter y: ");
+    scanf("%f", &x);
+    printf("Y é igual a %f", y(x));
+    getchar();
+    return 0;
+}

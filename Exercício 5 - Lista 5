@@ -1,0 +1,46 @@
+//Crie uma função calcula_imc() que recebe peso (Kg) e altura (m) e retorna um inteiro ao depende do Índice de Massa Corporal.
+//Classifique o resultado: abaixo de 18.5 -> magreza: 0 | 18.5-24.9 -> saudável:1 | 25-29.9 -> sobrepeso: 2 | acima de 30: obesidade: 3.
+//Faça uma segunda função imprima_imc() que chame a primeira e imprima o resultado por escrito.   IMC = peso/altura'2.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+float peso, altura;
+
+int calcula_imc(float peso, float altura){
+    float imc = peso / (altura * altura);
+    if(imc < 18.5){
+        return 0;
+    } else if(18.5 <= imc <= 24.9){
+        return 1;
+    } else if(25 <= imc <= 29.9){
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
+void imprima_imc(float peso, float altura){
+    int resultado = calcula_imc(peso, altura);
+    if(resultado == 0){
+        printf("Você está com magreza.\n");
+    }
+    if(resultado == 1){
+        printf("Você está saudável.\n");
+    }
+    if(resultado == 2){
+        printf("Você está com sobrepeso.\n");
+    }
+    if(resultado == 3){
+        printf("Você está com obesidade.\n");
+    }
+}
+
+int main(){
+    float peso, altura;
+    printf("Para calcular seu estado de imc, digite o seu peso (Kg) e altura(m)(ex: peso altura): ");
+    scanf("%f %f", &peso, &altura);
+    imprima_imc(peso, altura);
+    getchar();
+    return 0;
+}

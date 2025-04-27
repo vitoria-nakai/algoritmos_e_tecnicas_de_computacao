@@ -1,0 +1,36 @@
+//Crie uma função eh_primo que recebe um número inteiro e retorna 1 se for primo ou 0 caso contrário.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int eh_primo(int a){
+    printf("Digite um número para verificar se eh primo: ");
+    scanf("%d", &a);
+    if(a <= 1){
+        return 0;
+    }
+    for(int i = 2; i < a; i++){
+        if(a % i == 0){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void resposta(int a){
+    int resposta = eh_primo(a);
+    if(resposta == 1){
+        printf("É primo!");
+    } 
+    if(resposta == 0){
+        printf("Nao eh primo!");
+    }
+
+}
+
+int main(){
+    int a;
+    resposta(a);
+    getchar();
+    return 0;
+}

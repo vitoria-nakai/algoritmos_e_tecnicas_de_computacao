@@ -1,0 +1,17 @@
+//Crie uma função celsius_para_fahrenheit() que converte Celsius para Farenheit usando a fórmula: F = (C x 9/5) + 32.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+float celsius_para_farenheit(float C){
+    return ((C * 9 / 5) + 32);
+}
+
+int main(){
+    float C;
+    printf("Digite a temperatura em Celsius para convertermos em Farenheit: ");
+    scanf("%f", &C);
+    printf("A temperatura é de %f farenheits.", celsius_para_farenheit(C));
+    getchar();
+    return 0;
+}

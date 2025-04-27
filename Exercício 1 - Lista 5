@@ -1,0 +1,15 @@
+//Crie uma função imprime_ola() que não recebe parametros e imprime "Ola, mundo!".
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int imprime_ola(){
+    printf("Ola, mundo!");
+    return 0;
+}
+
+int main(){
+    imprime_ola();
+    getchar();
+    return 0;
+}

@@ -1,0 +1,17 @@
+//Escreva um programa que receba dois valores e troque os mesmos (a = 1 e b = 2, mas no final, a == 2 e b == 1).
+//Faça o programa com apenas duas variáveis.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+    int a, b;
+    printf("Digite dois numeros(ex:1 2): ");
+    scanf("%d %d", &a, &b);
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    printf(" Os numeros em ordem invertida foram %d %d", a, b);
+    getchar();
+    return 0;
+}

@@ -1,0 +1,19 @@
+//Crie uma função calcular_circulo() que calcule o perímetro e a área e os armazena em duas variáveis (use ponteiros de endereço).
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void calcular_circulo(float r, float *a, float *p){
+    *a = 3.141592f * r * r;
+    *p = 2 * 3.141592f * r;
+}
+
+int main(){
+    float r, a, p;
+    printf("Para saber a area e o perimetro do circulo, digite o tamanho de seu raio: ");
+    scanf("%f", &r);
+    calcular_circulo(r, &a, &p);
+    printf("Area = %f e perimetro = %f", a, p);
+    getchar();
+    return 0;
+}

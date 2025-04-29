@@ -1,0 +1,12 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+    float a, b, resultado;
+    printf("Para somar dois numeros, digite-os (ex: 1 2): ");
+    scanf("%f %f", &a, &b);
+    resultado = a + b;
+    printf("O resultado é %.2f", resultado);
+    getchar();
+    return 0;
+}

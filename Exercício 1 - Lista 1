@@ -1,3 +1,5 @@
+//Escreva um programa que realize a soma de dois números inteiros que são dados de entrada pelo usuário.
+
 #include<stdio.h>
 #include<stdlib.h>
 

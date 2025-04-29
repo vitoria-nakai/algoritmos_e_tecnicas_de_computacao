@@ -1,0 +1,14 @@
+//Escreva um programa que realize a soma de dois números "quebrados" que são dados de entrada pelo usuário.
+//(Usa-se %f para caracteres que representam pontos flutuantes e separa-se com "." ponto as casas decimais.)
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+    float a, b;
+    printf("Para somar dois numeros, digite-os (ex: 1 2): ");
+    scanf("%f %f", &a, &b);
+    printf("O resultado é %.2f", a + b);
+    getchar();
+    return 0;
+}

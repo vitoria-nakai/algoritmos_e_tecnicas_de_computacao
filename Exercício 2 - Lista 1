@@ -1,0 +1,13 @@
+//Use incremento para realizar o exercício anterior com apenas duas variáveis.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+    float a, b;
+    printf("Para somar dois numeros, digite-os (ex: 1 2): ");
+    scanf("%f %f", &a, &b);
+    printf("O resultado é %.2f", a + b);
+    getchar();
+    return 0;
+}

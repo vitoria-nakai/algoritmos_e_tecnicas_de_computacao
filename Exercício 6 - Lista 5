@@ -1,0 +1,26 @@
+//Crie uma funcao eh_palindromo() que recebe um numero inteiro e retorna 1 se for palindromo (ex: 121) ou 0 caso contrário.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int eh_palindromo(int numero){
+    int original = numero, invertido = 0;
+    while(numero > 0){
+        invertido = invertido * 10 + (numero % 10);
+        numero = numero / 10;
+    }
+    if(original == invertido){
+        printf("1");
+    } else {
+        printf("0");
+    }
+}
+
+int main(){
+    int numero;
+    printf("Para verificar se é palíndromo, digite o número: ");
+    scanf("%d", &numero);
+    eh_palindromo(numero);
+    getchar;
+    return 0;
+}

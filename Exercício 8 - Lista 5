@@ -1,0 +1,24 @@
+//Crie uma função calcular_distancia() que recebe coordenadas (x1, y1) e (x2, y2) e retorna a distância euclidiana entre os pontos.
+//Use sqrt() da biblioteca <math.h> para achar a raiz quadrada.
+//Distancia euclidiana é a distância entre dois pontos no espaço.
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+double calcular_distancia(int x1, int x2, int y1, int y2){
+    double d;
+    d = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    return d;
+}
+
+int main(){
+    int x1, x2, y1, y2;
+    double d;
+    printf("Para saber a distancia euclidiana entre duas coordenadas, digites-as (x1 y1 x2 y2): ");
+    scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+    d = calcular_distancia(x1, x2, y1, y2);
+    printf("A distancia euclidiana é igual a %.2f", d);
+    getchar();
+    return 0;
+}

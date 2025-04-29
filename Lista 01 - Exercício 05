@@ -1,0 +1,23 @@
+//Escreva um programa que calcule a soma, subtração, multiplicação e divisão de 'a' por 'b'.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+    float a, b;
+    char operador;
+    printf("Com dois numero, qual calculo voce quer fazer?");
+    scanf("%f %c %f", &a, &operador, &b);
+    if(operador == '+'){
+        printf("O resultado é %.2f", a + b);
+    }else if(operador == '-'){
+        printf("O resultado é %.2f", a - b);
+    }else if(operador == '*'){
+        printf("O resultado é %.2f", a * b);
+    }else if(operador == '/'){
+        printf("O resultado é %.2f", a / b);
+    }else{ printf("Error");
+    }
+    getchar();
+    return 0;
+}

@@ -1,0 +1,24 @@
+/* 
+Ex3: Faça uma função recursiva que retorne a quantidade de dígitos de um número inteiro.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int dig(int n){
+    int qtd = 1;
+    if(n < 10) return 1;
+    else {
+       n = n / 10;
+       return dig(n) + 1;
+    }
+}
+
+int main(){
+    int n, qtd = 1;
+    printf("Digite um numero: ");
+    scanf("%d", &n);
+    printf("Quantidade de digitos: %d", dig(n));
+    getchar();
+    return 0;
+}

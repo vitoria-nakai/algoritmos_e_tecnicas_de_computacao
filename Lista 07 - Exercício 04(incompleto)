@@ -1,0 +1,24 @@
+/*
+Faça uma função que dados dois vetores A e B de tamanho T, imprima os elementos que estão em ambos os vetores.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int ambos(int T, int v[T],int w[T]){
+    for(int i = 0; i < T; i++){
+        for(int J = 0; j < T; j++){
+            if(v[i] == w[j]){
+                return printf("%d", w[j]);
+            }
+        }
+    }
+    
+}
+
+int main(){
+    int A = {1, 2, 3, 4, 5}, B = {4, 5, 6, 7, 8};
+    printf("%d", ambos(5, B, A));
+    getchar();
+    return 0;
+}

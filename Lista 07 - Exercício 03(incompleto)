@@ -1,0 +1,22 @@
+/*
+Crie uma função que verifique se um elemento X está presente no vetor A de tamanho T;
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int presente(char x, int T, int *V){
+    for(int i = 0; i <= T; i++){
+        if(x == V[i]){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int main(){
+    char A = {A, B, C, D, E};
+    printf("%d", pertence(A, 5, A));
+    getchar();
+    return 0;
+}

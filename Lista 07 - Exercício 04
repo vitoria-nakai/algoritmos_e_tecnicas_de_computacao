@@ -1,0 +1,23 @@
+/*
+Faça uma função que dados dois vetores A e B de tamanho T, imprima os elementos que estão em ambos os vetores.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+int f(int *vA, int *vB, int T){
+    for(int i = 0; i < T; i++){
+        for(int j = 0; j < T; j++){
+            if(vA[i] == vB[j]){
+                printf("%d\n", vB[j]);
+            }
+        }
+    }
+    return 0;
+}
+
+int main(){
+    int vA[10] = {5, 2, 9, 56, 12, 34, 99, 65, 76, 19}, vB[10] = {1, 5, 76, 55, 99, 32, 33, 65, 88, 4}, T = 10;
+    f(vA, vB, T);
+    getchar();
+    return 0;
+}

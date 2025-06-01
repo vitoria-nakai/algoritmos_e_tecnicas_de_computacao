@@ -1,0 +1,20 @@
+/*
+Faça um programa que armazene todos os valores de um vetor passado pelo usuário. Peça ao usuário um número n, inicialmente,
+que representa quantos números serão armazenados.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+    int *v = NULL;
+    int quanto;
+    scanf("%d", &quanto);
+    v = (int*)malloc(quanto * sizeof(int));
+    if(v == NULL) return 1;
+    for(int i = 0; i < quanto; i++) scanf("%d", &v[i]);
+    for(int i = 0; i < quanto; i++) printf("%d,", v[i]);
+    free(v);
+    getchar();
+    return 0;
+}

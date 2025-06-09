@@ -1,0 +1,48 @@
+/*
+Usando as funções dos exercícios 6, 7, 8, e 9, faça um programa que 
+realize o produto vetorial de duas matrizes alocadas dinamicamente
+(quando o produto vetorial for possível).
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int **multiplica(int **A, int l1, int c1, int **B, int l2, int c2) {
+    if (c1 != l2) return NULL;            /* incompatível */
+    int **R = alocaMatriz(l1, c2);
+    if (!R) return NULL;
+    for (int i = 0; i < l1; ++i)
+        for (int j = 0; j < c2; ++j) {
+            R[i][j] = 0;
+            for (int k = 0; k < c1; ++k)
+                R[i][j] += A[i][k] * B[k][j];
+        }
+    return R;
+}
+
+int main(void) {
+    int l1, c1, l2, c2;
+
+    puts("Dimensões da primeira matriz:");
+    scanf("%d %d", &l1, &c1);
+    int **A = alocaMatriz(l1, c1);
+    preencheMatriz(A, l1, c1);
+
+    puts("Dimensões da segunda matriz:");
+    scanf("%d %d", &l2, &c2);
+    int **B = alocaMatriz(l2, c2);
+    preencheMatriz(B, l2, c2);
+
+    int **R = multiplica(A, l1, c1, B, l2, c2);
+    if (!R) {
+        puts("Não é possível multiplicar as matrizes.");
+    } else {
+        puts("Resultado:");
+        imprimeMatriz(R, l1, c2);
+        liberaMatriz(R, l1);
+    }
+
+    liberaMatriz(A, l1);
+    liberaMatriz(B, l2);
+    return 0;
+}

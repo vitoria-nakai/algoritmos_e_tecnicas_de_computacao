@@ -1,0 +1,12 @@
+/*
+Escreva uma função que calcula a transposta de uma matriz 3x3.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void transposta3x3(const int M[N][N], int T[N][N]) {
+    for (int i = 0; i < N; ++i)
+        for (int j = 0; j < N; ++j)
+            T[j][i] = M[i][j];
+}

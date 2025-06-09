@@ -1,0 +1,13 @@
+/*
+Calcule a soma dos elementos da diagonal principal de uma matriz 3x3.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int somaDiagonal3x3(const int M[N][N]) {
+    int soma = 0;
+    for (int i = 0; i < N; ++i)
+        soma += M[i][i];
+    return soma;
+}

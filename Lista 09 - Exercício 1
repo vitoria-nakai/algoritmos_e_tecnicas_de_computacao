@@ -1,0 +1,11 @@
+/*
+Crie uma função que recebe duas matrizes 3x3 e retorna a soma delas.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void soma3x3(const int A[N][N], const int B[N][N], int R[N][N]) {
+    for (int i = 0; i < N; ++i)
+        for (int j = 0; j < N; ++j)
+            R[i][j] = A[i][j] + B[i][j];

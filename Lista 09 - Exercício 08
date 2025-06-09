@@ -1,0 +1,14 @@
+/*
+Faça uma função para o usuário preencher uma matriz dinâmica.
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void preencheMatriz(int **m, int linhas, int colunas) {
+    for (int i = 0; i < linhas; ++i)
+        for (int j = 0; j < colunas; ++j) {
+            printf("m[%d][%d] = ", i, j);
+            scanf("%d", &m[i][j]);
+        }
+}

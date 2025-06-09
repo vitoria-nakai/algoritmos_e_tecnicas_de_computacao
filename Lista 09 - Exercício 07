@@ -1,0 +1,12 @@
+/*
+Faça uma função para liberar o espaço alocado pela matriz (a quantidade de linha entra como parâmetro).
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void liberaMatriz(int **m, int linhas) {
+    if (!m) return;
+    for (int i = 0; i < linhas; ++i) free(m[i]);
+    free(m);
+}

@@ -1,0 +1,13 @@
+/*
+Preencha os espaços em cada uma das sentenças a seguir:
+
+a) C armazena lista de valores em _arrays_.
+b) Os elementos de um array têm em comum o fato de que eles _têm o mesmo tipo e nome_.
+c) Ao se referir a um elemento do array, o número da posição contido dentro dos parênteses é um(a) _subscrito_.
+d) Os nomes dos cincos elementos do array p são _p[1]_, _p[2]_, _p[3]_, _p[4]_ e _p[5].
+e) O conteúdo de um elemento em particular de um array é chamado _valor_ desse elemento.
+f) Dar nome a um array, indicar seu tipo e especificar o número de elementos contidos nele é chamado _definir_ o array.
+g) Em um array de subscrito duplo (matriz), o primeiro subscrito (por convenção) identifica a _linha_ de um elemento, e o segundo subscrito (por convenção) identifica a _coluna_ de um elemento.
+h) Um array *m*-por-*n* contém _m_ linhas, _n_ colunas e _m*n_ elementos.
+i) O nome do elemento do array d na linha 3, coluna 5 é _d[3][5]_.
+*/

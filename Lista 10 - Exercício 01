@@ -1,0 +1,23 @@
+/*
+Main pode ser chamada recursivamente?
+Escreva um programa que contenha uma função main.
+Inclua uma variável global count inicializada como 0.
+Pós-incremente e imprima o valor de count cada vez que main for chamada.
+Execute seu programa. O que acontece?
+*/
+
+/*Sim, a função main pode ser chamada recursivamente. Entretanto, não é 
+recomendada essa prática, visto que gera loop infinito que pode acarretar
+falhas no programa.
+*/
+#include<stdio.h>
+#include<stdlib.h>
+
+int count = 0;
+
+int main(){
+    printf("%d", count);
+    main();
+    getchar();
+    return 0;
+}

@@ -1,0 +1,62 @@
+/*
+Encontre o erro em cada um dos segmentos de programa a seguir.
+
+a)int *number;
+printf("%d\n", *number);
+
+Não houve referenciamento do ponteiro.
+
+correção:
+int *number;
+int v = 10;
+number = &v;
+printf("%d\n", number);
+
+b) float *realPtr;
+long *integerPtr;
+integerPtr = realPtr;
+
+O erro está na atribuição de um ponteito float a um long.
+
+correção:
+
+float *realPtr;
+long *integerPtr;
+integerPtr = (long*)realPtr;
+
+c)int *x, y;
+x = y;
+
+Para o ponteiro adquirir um valor, deve-se atribuir endereço a uma variável com valor já atribuído.
+
+correção:
+
+int *x, y = 5;
+x = &y;
+
+d) char s[] = "um array de caracteres";
+int count;
+for(; *s != '\0'; s++)
+   printf("%c", *s);
+
+'s' é adicionado no loop, perdendo a referência.
+
+   
+e) short *numPtr, result;
+void *genericPtr = numPtr;
+result = *genericPtr + 7;
+
+Não é possível desreferenciar um ponteiro 'void*' diretamente para realizar aritmética.
+
+f) float x = 19.34;
+float xPtr = &x;
+printf("%f\n", xPtr);
+
+'xPtr' é declarado como 'float', mas recebe um endereço ('&x'), que é um 'float*'.
+O especificador de formato no printf é '&fn\', deveria ser '%f' para float.
+
+g) char *s;
+printf("%s\n", s);
+
+O ponteiro não teve atribuição de um endereço.
+*/

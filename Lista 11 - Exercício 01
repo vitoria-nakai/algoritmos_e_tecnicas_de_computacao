@@ -1,0 +1,40 @@
+/*
+Escreva um programa que receba de argumento, dois números (início e fim)
+e imprima todos os números primos nesse intervalo.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int eh_primo(int num) {
+    if (num <= 1) {
+        return 0;
+    }
+    for (int i = 2; i <= sqrt(num); i++) {
+        if (num % i == 0) {
+            return 0; 
+        }
+    }
+    return 1; 
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        printf("Uso: %s <inicio> <fim>\n", argv[0]);
+        return 1;
+    }
+
+    int inicio = atoi(argv[1]);
+    int fim = atoi(argv[2]);
+
+    printf("Numeros primos entre %d e %d:\n", inicio, fim);
+
+    for (int i = inicio; i <= fim; i++) {
+        if (eh_primo(i)) {
+            printf("%d\n", i);
+        }
+    }
+
+    return 0;
+}

@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_NOME 50
+#define MAX_PEDIDOS 50
+
+typedef struct {
+    char nome[MAX_NOME];
+    double preco;
+} MenuItem;
+
+typedef struct {
+    MenuItem item;
+    int quantidade;
+} OrderItem;
+
+int main() {
+    FILE *arquivo_menu = fopen("menu.txt", "r");
+    if (arquivo_menu == NULL) {
+        printf("Erro: Arquivo 'menu.txt' nao encontrado.\n");
+        return 1;
+    }
+
+    int qtd_itens_menu;
+    fscanf(arquivo_menu, "%d", &qtd_itens_menu);
+
+    // Aloca memória para o menu
+    MenuItem *menu = (MenuItem *)malloc(qtd_itens_menu * sizeof(MenuItem));
+
+    // Lê os itens do menu do arquivo
+    for (int i = 0; i < qtd_itens_menu; i++) {
+        fscanf(arquivo_menu, "%s %lf", menu[i].nome, &menu[i].preco);
+    }
+    fclose(arquivo_menu);
+
+    OrderItem pedido[MAX_PEDIDOS];
+    int qtd_itens_pedido = 0;
+    int escolha;
+
+    while (1) {
+        printf("\n--- MENU DA LANCHONETE ---\n");
+        for (int i = 0; i < qtd_itens_menu; i++) {
+            printf("%d. %-20s R$ %.2f\n", i + 1, menu[i].nome, menu[i].preco);
+        }
+        printf("0. Finalizar Pedido\n");
+        printf("\nEscolha um item: ");
+        scanf("%d", &escolha);
+
+        if (escolha == 0) {
+            break;
+        }
+
+        if (escolha > 0 && escolha <= qtd_itens_menu) {
+            printf("Quantidade: ");
+            int quantidade;
+            scanf("%d", &quantidade);
+
+            if (quantidade > 0) {
+                pedido[qtd_itens_pedido].item = menu[escolha - 1];
+                pedido[qtd_itens_pedido].quantidade = quantidade;
+                qtd_itens_pedido++;
+                printf("=> Pedido adicionado!\n");
+            } else {
+                printf("Quantidade invalida.\n");
+            }
+        } else {
+            printf("Opcao invalida.\n");
+        }
+    }
+    
+    // Libera a memória do menu
+    free(menu);
+
+    if (qtd_itens_pedido == 0) {
+        printf("Nenhum item pedido. Encerrando.\n");
+        return 0;
+    }
+
+    // Gera o boleto
+    FILE *boleto = fopen("boleto.txt", "w");
+    if (boleto == NULL) {
+        printf("Erro ao criar o boleto.txt\n");
+        return 1;
+    }
+    
+    fprintf(boleto, "--- BOLETO DO PEDIDO ---\n\n");
+    fprintf(boleto, "%-5s %-20s %10s\n", "QTD", "ITEM", "SUBTOTAL");
+    fprintf(boleto, "--------------------------------------\n");
+    
+    double total = 0.0;
+    for (int i = 0; i < qtd_itens_pedido; i++) {
+        double subtotal = pedido[i].item.preco * pedido[i].quantidade;
+        total += subtotal;
+        fprintf(boleto, "%-5d %-20s R$ %8.2f\n", 
+            pedido[i].quantidade, 
+            pedido[i].item.nome, 
+            subtotal);
+    }
+    
+    fprintf(boleto, "--------------------------------------\n");
+    fprintf(boleto, "%-26s R$ %8.2f\n", "TOTAL:", total);
+    
+    fclose(boleto);
+    printf("\nPedido finalizado! O arquivo 'boleto.txt' foi gerado.\n");
+    
+    return 0;
+}

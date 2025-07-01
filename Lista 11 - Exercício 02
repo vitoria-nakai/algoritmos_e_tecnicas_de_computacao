@@ -6,20 +6,19 @@ fornecido, arredonde para 0 casas decimais (casas = 0).
 #include <stdio.h>
 #include <math.h>
 
-double arredondar(double valor, int casas) {
-    double multiplicador = pow(10.0, casas);
-    return floor(valor * multiplicador + 0.5) / multiplicador;
+double arredondar(double num, int qtd){
+    if(qtd == 0) return num;
+    double multiplicador = pow(10, qtd);
+    return floor(num * multiplicador) / multiplicador;
 }
 
-int main() {
-    double valor1 = 15.789;
-    double valor2 = 3.14159265;
-
-    double arredondado1 = arredondar(valor1, 0);
-    printf("O valor %.4f arredondado para 0 casas e: %.4f\n", valor1, arredondado1);
-
-    double arredondado2 = arredondar(valor2, 2);
-    printf("O valor %.8f arredondado para 2 casas e: %.8f\n", valor2, arredondado2);
-    
+int main(){
+    double num;
+    int qtd;
+    printf("Para arredondar para dada casas decimais, digite o numero: ");
+    scanf("%lf", &num);
+    printf("Digite a quantidade de casas decimais: ");
+    scanf("%d", &qtd);
+    printf("Arredondando fica %f", arredondar(num, qtd));
     return 0;
 }

@@ -1,0 +1,170 @@
+/*
+Adapte o menu interativo feito na lista de exercícios anterior e crie 
+uma struct menu com uma lista de uma struct produto, crie uma função 
+para inicializar um produto e atualize o exercício.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_NOME_ITEM 50
+#define TAMANHO_BUFFER_LINHA (MAX_NOME_ITEM + 20)
+
+typedef struct {
+    char *nome;
+    double preco;
+} Produto;
+
+typedef struct {
+    Produto *produtos;
+    int quantidade;
+} MenuLanchonete;
+
+int inicializarProduto(Produto *p, const char *nome_str, double preco_val) {
+    if (p == NULL || nome_str == NULL) {
+        return -1;
+    }
+    p->nome = (char *)malloc(strlen(nome_str) + 1);
+    if (p->nome == NULL) {
+        return -1;
+    }
+    strcpy(p->nome, nome_str);
+    p->preco = preco_val;
+    return 0;
+}
+
+int main() {
+    FILE *arquivo_menu = fopen("menu.txt", "r");
+
+    if (arquivo_menu == NULL) {
+        printf("Erro ao abrir o arquivo menu.txt. Certifique-se de que ele existe e está acessível.\n");
+        return 1;
+    }
+
+    MenuLanchonete menuPrincipal;
+    menuPrincipal.produtos = NULL;
+    menuPrincipal.quantidade = 0;
+
+    if (fscanf(arquivo_menu, "%d", &menuPrincipal.quantidade) != 1) {
+        printf("Erro ao ler a quantidade de itens do menu. Verifique o formato de menu.txt.\n");
+        fclose(arquivo_menu);
+        return 1;
+    }
+    fgetc(arquivo_menu);
+
+    menuPrincipal.produtos = (Produto *)malloc(menuPrincipal.quantidade * sizeof(Produto));
+    if (menuPrincipal.produtos == NULL) {
+        printf("Erro ao alocar memória para os produtos do menu.\n");
+        fclose(arquivo_menu);
+        return 1;
+    }
+
+    char buffer_linha_temp[TAMANHO_BUFFER_LINHA];
+    char nome_item_temp[MAX_NOME_ITEM];
+    double preco_lido;
+
+    for (int i = 0; i < menuPrincipal.quantidade; i++) {
+        if (fgets(buffer_linha_temp, sizeof(buffer_linha_temp), arquivo_menu) == NULL) {
+            printf("Erro ao ler item %d do arquivo 'menu.txt' ou fim inesperado do arquivo.\n", i);
+            for (int j = 0; j < i; j++) {
+                free(menuPrincipal.produtos[j].nome);
+            }
+            free(menuPrincipal.produtos);
+            fclose(arquivo_menu);
+            return 1;
+        }
+
+        buffer_linha_temp[strcspn(buffer_linha_temp, "\n")] = 0;
+
+        if (sscanf(buffer_linha_temp, "%s %lf", nome_item_temp, &preco_lido) != 2) {
+            printf("Erro de formato ao parsear item %d da linha: '%s'. Verifique o arquivo (nome e preco).\n", i, buffer_linha_temp);
+            for (int j = 0; j < i; j++) {
+                free(menuPrincipal.produtos[j].nome);
+            }
+            free(menuPrincipal.produtos);
+            fclose(arquivo_menu);
+            return 1;
+        }
+
+        if (inicializarProduto(&menuPrincipal.produtos[i], nome_item_temp, preco_lido) != 0) {
+            printf("Erro ao inicializar produto %d ('%s').\n", i, nome_item_temp);
+            for (int j = 0; j < i; j++) {
+                free(menuPrincipal.produtos[j].nome);
+            }
+            free(menuPrincipal.produtos);
+            fclose(arquivo_menu);
+            return 1;
+        }
+    }
+
+    if (fclose(arquivo_menu) == EOF) {
+        printf("Erro ao fechar arquivo 'menu.txt'.\n");
+        for (int i = 0; i < menuPrincipal.quantidade; i++) {
+            free(menuPrincipal.produtos[i].nome);
+        }
+        free(menuPrincipal.produtos);
+        return 1;
+    }
+
+    FILE *arquivo_boleto = fopen("boleto.txt", "w");
+    if (arquivo_boleto == NULL) {
+        printf("Erro ao criar arquivo 'boleto.txt'.\n");
+        for (int i = 0; i < menuPrincipal.quantidade; i++) {
+            free(menuPrincipal.produtos[i].nome);
+        }
+        free(menuPrincipal.produtos);
+        return 1;
+    }
+    fprintf(arquivo_boleto, "--- Lista de Pedidos ---\n\n");
+
+    int indice_pedido;
+    double soma_total = 0;
+
+    do {
+        printf("\n--- MENU INTERATIVO ---\n");
+        printf("Digite o numero correspondente do pedido para adicionar a lista de compras.\n\n");
+        for (int i = 0; i < menuPrincipal.quantidade; i++) {
+            printf("%d. %s -> %.2lf\n", i, menuPrincipal.produtos[i].nome, menuPrincipal.produtos[i].preco);
+        }
+        printf("-1. Finalizar o pedido.\n");
+        printf("Digite o pedido: ");
+
+        if (scanf("%d", &indice_pedido) != 1) {
+            printf("Entrada invalida. Por favor, digite um numero inteiro.\n");
+            while (getchar() != '\n' && getchar() != EOF);
+            indice_pedido = -2;
+            continue;
+        }
+        while (getchar() != '\n' && getchar() != EOF);
+
+        if (indice_pedido >= 0 && indice_pedido < menuPrincipal.quantidade) {
+            fprintf(arquivo_boleto, "%s -> %.2lf\n", menuPrincipal.produtos[indice_pedido].nome, menuPrincipal.produtos[indice_pedido].preco);
+            soma_total = soma_total + menuPrincipal.produtos[indice_pedido].preco;
+            printf("'%s' adicionado ao pedido.\n", menuPrincipal.produtos[indice_pedido].nome);
+        } else if (indice_pedido != -1) {
+            printf("Numero de pedido invalido. Por favor, digite um numero entre 0 e %d, ou -1 para finalizar.\n", menuPrincipal.quantidade - 1);
+        }
+    } while (indice_pedido != -1);
+
+    fprintf(arquivo_boleto, "\n--------------------------\n");
+    fprintf(arquivo_boleto, "Total: %.2lf\n", soma_total);
+
+    if (fclose(arquivo_boleto) == EOF) {
+        printf("Erro ao fechar arquivo 'boleto.txt'.\n");
+        for (int i = 0; i < menuPrincipal.quantidade; i++) {
+            free(menuPrincipal.produtos[i].nome);
+        }
+        free(menuPrincipal.produtos);
+        return 1;
+    }
+
+    for (int i = 0; i < menuPrincipal.quantidade; i++) {
+        free(menuPrincipal.produtos[i].nome);
+    }
+    free(menuPrincipal.produtos);
+
+    printf("\nBoleto gerado com sucesso em 'boleto.txt'.\n");
+
+    return 0;
+}

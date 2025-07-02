@@ -1,0 +1,62 @@
+/*
+Faça uma struct para lista de alunos (dica: adapte o exemplo
+da aula) e uma função que calcule e imprima a média de cada
+aluno.
+*/
+#include <stdio.h>
+
+typedef struct {
+    char nome[50];
+    float prova1;
+    float prova2;
+    float prova3;
+} FichaDeAluno;
+
+void calculaEmostraMediaDaTurma(FichaDeAluno turma[], int quantidadeDeAlunos) {
+    printf("\n--- RESULTADOS DAS MÉDIAS DA GALERA ---\n");
+
+    for (int i = 0; i < quantidadeDeAlunos; i++) {
+        float mediaDoAlunoAtual = (turma[i].prova1 + turma[i].prova2 + turma[i].prova3) / 3.0;
+        printf("Nome: %s | Média: %.2f\n", turma[i].nome, mediaDoAlunoAtual);
+    }
+}
+
+int main() {
+    int LIMITE_DE_ALUNOS = 3;
+    FichaDeAluno listaDeAlunos[LIMITE_DE_ALUNOS];
+    int alunosJaCadastrados = 0;
+
+    printf("--- BEM-VINDO AO CADASTRO DE ALUNOS DA FACUL ---\n");
+
+    for (int i = 0; i < LIMITE_DE_ALUNOS; i++) {
+        printf("\nPreencha os dados do Aluno %d (o %d é o número do aluno, tá?):\n", i + 1, i + 1);
+
+        printf("Qual o nome do aluno? ");
+        if (fgets(listaDeAlunos[i].nome, sizeof(listaDeAlunos[i].nome), stdin) != NULL) {
+            int tamanhoDoNome = 0;
+            while (listaDeAlunos[i].nome[tamanhoDoNome] != '\0' && listaDeAlunos[i].nome[tamanhoDoNome] != '\n') {
+                tamanhoDoNome++;
+            }
+            listaDeAlunos[i].nome[tamanhoDoNome] = '\0';
+        }
+
+        printf("Nota da Prova 1: ");
+        scanf("%f", &listaDeAlunos[i].prova1);
+
+        printf("Nota da Prova 2: ");
+        scanf("%f", &listaDeAlunos[i].prova2);
+
+        printf("Nota da Prova 3: ");
+        scanf("%f", &listaDeAlunos[i].prova3);
+
+        while (getchar() != '\n');
+
+        alunosJaCadastrados++;
+    }
+
+    calculaEmostraMediaDaTurma(listaDeAlunos, alunosJaCadastrados);
+
+    printf("\nO programa terminou, valeu!\n");
+
+    return 0;
+}

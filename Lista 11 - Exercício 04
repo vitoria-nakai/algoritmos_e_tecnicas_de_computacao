@@ -7,39 +7,59 @@ indica as dimensões da matriz.
 #include <stdio.h>
 #include <stdlib.h>
 
-void ler_matriz(FILE *f, int **matriz, int dim){
-    for(int i = 0; i < dim; i++){
-        for(int j = 0; j < dim; j++){
-            fscanf(f, "%d", &matriz[i][j]);
-        }
-    }
-}
-
-int** def_tam_matriz(int dim){
+//DEFINIÇÃO DO TAMANHO DA MATRIZ.
+int** tam_matriz(int dim){
     int **matriz = (int**)malloc(dim * sizeof(int*));
     for(int i = 0; i < dim; i++) matriz[i] = (int*)malloc(dim * sizeof(int));
     return matriz;
 }
 
+//ATRIBUIÇÃO DOS VALORES DAS MATRIZES DO ARQUIVO PARA AS VARIÁVEIS LOCAIS.
+void atribuir(FILE *arquivo, int **matriz, int dim){
+    for(int i = 0; i < dim; i++){
+        for(int j = 0; j < dim; j++){
+            fscanf(arquivo, "%d", &matriz[i][j]);
+        }
+    }
+}
+
+//LIBERAÇÃO DE MEMÓRIA DAS MATRIZES
+void liberar(int **matriz, int dim){
+    for(int i = 0; i < dim; i++) free(matriz[i]);
+    free(matriz);
+}
+
 int main(){
+    //ABERTURA DO ARQUIVO.
     FILE *arquivo = fopen("matriz.txt", "r");
     if(arquivo == NULL){
-        printf("Erro ao abrir o arquivo");
+        printf("Erro ao abrir o arquivo.");
         return 1;
     }
+    //OBTENDO A DIMENSÃO DAS MATRIZES NA PRIMEIRA LINHA.
     int dim;
     fscanf(arquivo, "%d", &dim);
     
-    int **matriz_1 = def_tam_matriz(dim), **matriz_2 = def_tam_matriz(dim), **result = def_tam_matriz(dim);
-    ler_matriz(arquivo, matriz_1, dim);
-    ler_matriz(arquivo, matriz_2, dim);
+    //CRIAÇÃO DAS VARIÁVEIS QUE GUARDAR AS MATRIZES 1, 2 E RESULTADO, JÁ DEFININDO TAMANHO.
+    int **matriz_1 = tam_matriz(dim), **matriz_2 = tam_matriz(dim), **result = tam_matriz(dim);
     
+    //ATRIBUIÇÃO DAS MATRIZES 1 E 2 COM VALORES DO ARQUIVO.
+    atribuir(arquivo, matriz_1, dim);
+    atribuir(arquivo, matriz_2, dim);
+    
+    //FECHAMENTO DO ARQUIVO E VERIFICAÇÃO.
+    if(fclose(arquivo) == -1){
+        printf("Erro ao fechar o arquivo.");
+        return 1;
+    }
+    
+    //SOMA DAS MATRIZES LOCAIS.
     for(int i = 0; i < dim; i++){
         for(int j = 0; j < dim; j++){
             result[i][j] = matriz_1[i][j] + matriz_2[i][j];
         }
     }
-    
+    //IMPRESSÃO DO RESULTADO
     for(int i = 0; i < dim; i++){
         for(int j = 0; j < dim; j++){
             printf("%d\t", result[i][j]);
@@ -47,11 +67,9 @@ int main(){
         printf("\n");
     }
     
-    if(fclose(arquivo) == -1){
-        printf("Erro ao fechar arquivo.");
-        return 1;
-    }
+    //LIBERAÇÃO DA MEMÓRIA USADA NAS MATRIZES.
+    liberar(matriz_1, dim);
+    liberar(matriz_2, dim);
+    
     return 0;
-    
-    
 }

@@ -1,0 +1,50 @@
+/*
+Faça uma struct para alunos que permita o professor registrar notas e
+faça uma função que permita calcular a média final(20% nota de exercícios
+e 80% notas de duas provas, uma com peso 4 e outra com peso 6).
+*/
+
+#include <stdio.h>
+
+struct Aluno {
+    float nota_exercicios;
+    float nota_prova1;
+    float nota_prova2;
+};
+
+float calculaMediaFinal(struct Aluno dados_aluno) {
+    float parte_exercicios;
+    float parte_provas;
+    float media_total;
+
+    parte_exercicios = dados_aluno.nota_exercicios * 0.20;
+
+    parte_provas = ((dados_aluno.nota_prova1 * 4) + (dados_aluno.nota_prova2 * 6)) / 10.0;
+    parte_provas = parte_provas * 0.80;
+
+    media_total = parte_exercicios + parte_provas;
+
+    return media_total;
+}
+
+int main() {
+    struct Aluno aluno_um;
+
+    aluno_um.nota_exercicios = 7.5;
+    aluno_um.nota_prova1 = 6.0;
+    aluno_um.nota_prova2 = 8.5;
+
+    float media_aluno1 = calculaMediaFinal(aluno_um);
+
+    printf("A media final do aluno 1 eh: %.2f\n", media_aluno1);
+
+    struct Aluno aluno_dois;
+    aluno_dois.nota_exercicios = 9.0;
+    aluno_dois.nota_prova1 = 7.0;
+    aluno_dois.nota_prova2 = 9.5;
+
+    float media_aluno2 = calculaMediaFinal(aluno_dois);
+    printf("A media final do aluno 2 eh: %.2f\n", media_aluno2);
+
+    return 0;
+}

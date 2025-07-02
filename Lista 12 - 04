@@ -1,0 +1,73 @@
+/*
+Usando int, faC'a uma struct para representar nC:meros decimais com atC)
+4 casas e faC'a funC'C5es para somar, subtrair e imprimir o valor.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    long long valor;
+} Decimal;
+
+Decimal criarDecimal(int parteInteira, int parteDecimal) {
+    Decimal d;
+    d.valor = (long long)parteInteira * 10000 + parteDecimal;
+    return d;
+}
+
+Decimal somarDecimais(Decimal d1, Decimal d2) {
+    Decimal resultado;
+    resultado.valor = d1.valor + d2.valor;
+    return resultado;
+}
+
+Decimal subtrairDecimais(Decimal d1, Decimal d2) {
+    Decimal resultado;
+    resultado.valor = d1.valor - d2.valor;
+    return resultado;
+}
+
+void imprimirDecimal(Decimal d) {
+    long long parteInteira = d.valor / 10000;
+    long long parteDecimal = d.valor % 10000;
+
+    if (parteDecimal < 0) {
+        parteDecimal = -parteDecimal;
+    }
+
+    printf("%lld.%04lld\n", parteInteira, parteDecimal);
+}
+
+int main() {
+    Decimal num1 = criarDecimal(10, 2500);
+    Decimal num2 = criarDecimal(5, 75);
+    Decimal num3 = criarDecimal(-2, 123);
+
+    printf("num1: ");
+    imprimirDecimal(num1);
+
+    printf("num2: ");
+    imprimirDecimal(num2);
+
+    printf("num3: ");
+    imprimirDecimal(num3);
+
+    Decimal soma = somarDecimais(num1, num2);
+    printf("num1 + num2: ");
+    imprimirDecimal(soma);
+
+    Decimal diferenca = subtrairDecimais(num1, num2);
+    printf("num1 - num2: ");
+    imprimirDecimal(diferenca);
+
+    Decimal diferenca_negativa = subtrairDecimais(num2, num1);
+    printf("num2 - num1: ");
+    imprimirDecimal(diferenca_negativa);
+
+    Decimal soma_com_negativo = somarDecimais(num1, num3);
+    printf("num1 + num3: ");
+    imprimirDecimal(soma_com_negativo);
+
+    return 0;
+}

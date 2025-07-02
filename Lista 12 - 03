@@ -1,0 +1,25 @@
+/*
+Faça uma struct para representar matrizes de inteiros pela lógica de nós.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct NoMatriz {
+    int valor;
+    int linha;
+    int coluna;
+    struct NoMatriz *proximoNaLinha;
+    struct NoMatriz *proximoNaColuna;
+} NoMatriz;
+
+int main() {
+    NoMatriz celula;
+    celula.valor = 0;
+    celula.linha = 0;
+    celula.coluna = 0;
+    celula.proximoNaLinha = NULL;
+    celula.proximoNaColuna = NULL;
+
+    return 0;
+}
